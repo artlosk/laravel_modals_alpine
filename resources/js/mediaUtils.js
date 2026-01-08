@@ -161,7 +161,6 @@ export function loadMediaLibraryModal(modalSelector, contentSelector) {
     $(document).off('click', `[data-media-target="${modalSelector}"]`).on('click', `[data-media-target="${modalSelector}"]`, function (e) {
         e.preventDefault();
 
-        // Manually show the modal to avoid Bootstrap conflict with parent Alpine modal
         const modalElement = document.querySelector(modalSelector);
         if (modalElement) {
             const modal = bootstrap.Modal.getOrCreateInstance(modalElement);

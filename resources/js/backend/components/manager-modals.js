@@ -31,13 +31,12 @@ document.addEventListener('alpine:init', () => {
             this.isLoading = true;
             this.modalContent = '';
 
-            // Lock body scroll
             document.body.style.overflow = 'hidden';
 
             try {
                 const response = await axios.get(url);
                 this.modalContent = response.data.html || response.data;
-                this.isLoading = false; // Show content before widgets init
+                this.isLoading = false;
 
                 this.$nextTick(() => {
                     if (typeof window.initMediaGalleryWidgets === 'function') {
@@ -56,7 +55,6 @@ document.addEventListener('alpine:init', () => {
             this.showModal = false;
             this.modalContent = '';
             this.url = '';
-            // Unlock body scroll
             document.body.style.overflow = '';
         },
 
@@ -72,7 +70,6 @@ document.addEventListener('alpine:init', () => {
 
             this.isLoading = true;
 
-            // Clear previous errors
             form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
             form.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
 
@@ -85,20 +82,16 @@ document.addEventListener('alpine:init', () => {
                 });
 
                 if (response.data.success) {
-                    // Prioritize redirect
                     if (response.data.redirect) {
                         window.location.href = response.data.redirect;
-                        return; // Stop further execution in this block
+                        return;
                     }
 
-                    // If no redirect, show toast if message is present
                     if (response.data.message) {
                         this.showToast('success', response.data.message);
                     }
 
-                    this.closeModal(); // Close modal after handling redirect or showing toast
-
-                    // Fallback reload if no redirect was handled
+                    this.closeModal();
                     setTimeout(() => {
                         window.location.reload();
                     }, 1000);
@@ -109,7 +102,6 @@ document.addEventListener('alpine:init', () => {
 
             } catch (error) {
                 if (error.response && error.response.status === 422) {
-                    // Validation errors
                     const errors = error.response.data.errors;
                     Object.keys(errors).forEach(field => {
                         const input = form.querySelector(`[name="${field}"]`);

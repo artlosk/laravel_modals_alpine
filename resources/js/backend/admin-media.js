@@ -36,7 +36,6 @@ toastr.options = {
     "timeOut": "5000"
 };
 
-// Export the initialization function so it can be called from other scripts (e.g. modals)
 export function initMediaGalleryWidgets(root = document) {
     root.querySelectorAll('.media-gallery-widget').forEach((container, index) => {
         const name = container.dataset.name;
@@ -60,18 +59,11 @@ export function initMediaGalleryWidgets(root = document) {
             return;
         }
 
-        // Search for modal in the whole document as it might be moved to body end
-        // BUT for initialization inside a modal container, it should be there.
-        // Let's use document for modal search if not found in root, or just document.
-        // Actually, if using `root`, we should look inside `root` first?
-        // Modals usually get moved, but here the HTML is fresh.
-        // Let's stick to `document.querySelector` for modalSelector as it is ID based.
         const modal = document.querySelector(modalSelector);
         if (!modal) {
             return;
         }
 
-        // Initialize modal explicitly to ensure Bootstrap tracks it
         if (typeof bootstrap !== 'undefined' && bootstrap.Modal) {
             bootstrap.Modal.getOrCreateInstance(modal);
         } else if (window.bootstrap && window.bootstrap.Modal) {
@@ -98,7 +90,6 @@ export function initMediaGalleryWidgets(root = document) {
     });
 }
 
-// Make it available globally for modals
 window.initMediaGalleryWidgets = initMediaGalleryWidgets;
 
 document.addEventListener('DOMContentLoaded', () => {
