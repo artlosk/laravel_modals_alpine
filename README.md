@@ -4,6 +4,12 @@
 
 ![Иллюстрация к проекту](https://github.com/artlosk/laravel_modals_alpine/raw/master/screen_01.png)
 
+![Иллюстрация к проекту](https://github.com/artlosk/laravel_modals_alpine/raw/master/screen_02.png)
+
+![Иллюстрация к проекту](https://github.com/artlosk/laravel_modals_alpine/raw/master/screen_03.png)
+
+![Иллюстрация к проекту](https://github.com/artlosk/laravel_modals_alpine/raw/master/screen_04.png)
+
 ## Технологический стек
 
 - PHP 8.2+
