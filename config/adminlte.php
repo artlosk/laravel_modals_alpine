@@ -103,7 +103,7 @@ return [
     |
     */
 
-    'logo' => '<b>Shopping</b>List',
+    'logo' => '<b>Laravel Modals</b>',
     'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
