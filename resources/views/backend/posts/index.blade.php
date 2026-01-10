@@ -62,7 +62,7 @@
                                 <td>
                                     @can('read-posts')
                                         <a href="{{ route('backend.posts.show', $post) }}" class="text-decoration-none"
-                                            @click.prevent="openModal('{{ route('backend.posts.show', $post) }}', 'Просмотр поста')">
+                                            onclick="event.preventDefault(); window.dispatchEvent(new CustomEvent('open-modal', { detail: { url: '{{ route('backend.posts.show', $post) }}', title: 'Просмотр поста' } }))">
                                             {{ $post->title }}
                                         </a>
                                     @else
@@ -82,14 +82,14 @@
                                         @can('read-posts')
                                             <a href="{{ route('backend.posts.show', $post) }}" class="btn btn-outline-info btn-sm"
                                                 title="Просмотр"
-                                                @click.prevent="openModal('{{ route('backend.posts.show', $post) }}', 'Просмотр поста')">
+                                                onclick="event.preventDefault(); window.dispatchEvent(new CustomEvent('open-modal', { detail: { url: '{{ route('backend.posts.show', $post) }}', title: 'Просмотр поста' } }))">
                                                 <i class="fas fa-eye"></i>
                                             </a>
                                         @endcan
                                         @can('edit-posts')
                                             <a href="{{ route('backend.posts.edit', $post) }}"
                                                 class="btn btn-outline-warning btn-sm" title="Редактировать"
-                                                @click.prevent="openModal('{{ route('backend.posts.edit', $post) }}', 'Редактировать пост')">
+                                                onclick="event.preventDefault(); window.dispatchEvent(new CustomEvent('open-modal', { detail: { url: '{{ route('backend.posts.edit', $post) }}', title: 'Редактировать пост' } }))">
                                                 <i class="fas fa-edit"></i>
                                             </a>
                                         @endcan

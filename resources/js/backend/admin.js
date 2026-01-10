@@ -1,6 +1,7 @@
 import '../../js/bootstrap';
-import 'bootstrap';
 import 'admin-lte';
+import toastr from 'toastr';
+import 'toastr/build/toastr.css';
 
 import Alpine from 'alpinejs';
 
@@ -13,6 +14,14 @@ import './users/userList';
 
 window.Alpine = Alpine;
 Alpine.start();
+
+window.toastr = toastr;
+toastr.options = {
+    closeButton: true,
+    progressBar: true,
+    positionClass: 'toast-top-right',
+    timeOut: '5000'
+};
 
 initDateInputs();
 

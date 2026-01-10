@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 document.addEventListener('alpine:init', () => {
     Alpine.data('managerModals', () => ({
         showModal: false,
@@ -33,14 +31,30 @@ document.addEventListener('alpine:init', () => {
 
             document.body.style.overflow = 'hidden';
 
+            if (!window.axios) {
+                console.error('Axios is not available');
+                this.showToast('error', 'Ошибка: Axios не загружен');
+                this.closeModal();
+                return;
+            }
+
             try {
-                const response = await axios.get(url);
+
+                const response = await window.axios.get(url, {
+                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
+                });
                 this.modalContent = response.data.html || response.data;
                 this.isLoading = false;
 
                 this.$nextTick(() => {
-                    if (typeof window.initMediaGalleryWidgets === 'function') {
-                        window.initMediaGalleryWidgets();
+                    if (typeof window.initMediaGalleryWidget === 'function') {
+                        const contentContainer = this.$refs.modalContent;
+                        if (contentContainer) {
+                            const galleryWidgets = contentContainer.querySelectorAll('.media-gallery-widget');
+                            galleryWidgets.forEach((container) => {
+                                window.initMediaGalleryWidget(container);
+                            });
+                        }
                     }
                 });
 
@@ -73,8 +87,15 @@ document.addEventListener('alpine:init', () => {
             form.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
             form.querySelectorAll('.invalid-feedback').forEach(el => el.remove());
 
+            if (!window.axios) {
+                console.error('Axios is not available');
+                this.showToast('error', 'Ошибка: Axios не загружен');
+                this.isLoading = false;
+                return;
+            }
+
             try {
-                const response = await axios({
+                const response = await window.axios({
                     method: method,
                     url: action,
                     data: formData,

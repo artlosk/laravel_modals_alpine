@@ -20,8 +20,10 @@ class PostController extends Controller
     public function create()
     {
         $this->authorize('create-posts');
-        if (request()->ajax()) {
-            return view('backend.posts._form');
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'html' => view('backend.posts._form')->render()
+            ]);
         }
         return view('backend.posts.form');
     }
@@ -70,8 +72,10 @@ class PostController extends Controller
             }
         ]);
 
-        if (request()->ajax()) {
-            return view('backend.posts._show', compact('post'));
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'html' => view('backend.posts._show', compact('post'))->render()
+            ]);
         }
 
         return view('backend.posts.show', compact('post'));
@@ -86,8 +90,10 @@ class PostController extends Controller
             }
         ]);
 
-        if (request()->ajax()) {
-            return view('backend.posts._form', compact('post'));
+        if (request()->ajax() || request()->wantsJson()) {
+            return response()->json([
+                'html' => view('backend.posts._form', compact('post'))->render()
+            ]);
         }
 
         return view('backend.posts.form', compact('post'));
